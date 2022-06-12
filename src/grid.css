@@ -1,0 +1,13 @@
+.container {
+    background-color: black;
+    display: grid;
+    grid-template-columns: 20rem 40rem 30rem;
+    grid-template-rows: 30rem 20rem;
+    grid-gap: 1rem;
+  }
+
+.item{
+    font-size: 10pt;
+    color: white;
+    text-align: middle;
+}
