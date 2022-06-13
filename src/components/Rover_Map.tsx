@@ -1,7 +1,9 @@
 import React,{useState,useEffect,useRef,useCallback} from 'react'
 import axios from 'axios'
 var x_previous: number;
+//x_previous=5;
 var y_previous: number;
+//y_previous=5;
 var rover_x: number;
 var rover_y: number;
 var alien_x: number;
@@ -50,14 +52,14 @@ const Rover_Map = ({ width, height }: CanvasProps) => {
                 setRoverlocateX((res.data)[0]['x-axis'])
                 setRoverlocateY((res.data)[0]['y-axis'])
 
-                if(id_rover_array.indexOf((res.data)[0]['id']) == -1){
-                    console.log("rover id update")
-                    id_rover_array.push((res.data)[0]['id'])
-                    forceUpdate();
-                }
-                else {
-                    console.log("rover id exist")
-                }
+                // if(id_rover_array.indexOf((res.data)[0]['id']) == -1){
+                //     console.log("rover id update")
+                //     id_rover_array.push((res.data)[0]['id'])
+                //     forceUpdate();
+                // }
+                // else {
+                //     console.log("rover id exist")
+                // }
             } 
             catch (error) {
                 console.log(error)
@@ -71,13 +73,13 @@ const Rover_Map = ({ width, height }: CanvasProps) => {
                 setAlienlocateX((res1.data)[0]['x-axis'])
                 setAlienlocateY((res1.data)[0]['y-axis'])
                 setAliencolor((res1.data)[0]['color'])
-                if(id_alien_array.indexOf((res1.data)[0]['id']) == -1){
-                    forceUpdate();
-                    id_alien_array.push((res1.data)[0]['id'])
-                }
-                else {
-                    console.log("alien id exist")
-                }
+                // if(id_alien_array.indexOf((res1.data)[0]['id']) == -1){
+                //     forceUpdate();
+                //     id_alien_array.push((res1.data)[0]['id'])
+                // }
+                // else {
+                //     console.log("alien id exist")
+                // }
             }
             catch (error) {
                 console.log(error)
@@ -88,8 +90,10 @@ const Rover_Map = ({ width, height }: CanvasProps) => {
         var roverlocate_x = roverlocatex.toString().split("")
         var roverlocate_y = roverlocatey.toString().split("")
         if (rover_x!==5+parseInt(roverlocate_x.join("")) || rover_y!==5+parseInt(roverlocate_y.join("")) ){
+           // if (5+parseInt(roverlocate_x.join(""))-x_previous>=20 || 5+parseInt(roverlocate_y.join(""))-y_previous>=20 ) {
             x_previous=rover_x
             y_previous=rover_y}
+        //}
         rover_x = 5+parseInt(roverlocate_x.join(""))    //+5: make sure full image/circle is displayed
         rover_y = 5+parseInt(roverlocate_y.join(""))
 
@@ -109,18 +113,22 @@ const Rover_Map = ({ width, height }: CanvasProps) => {
             var tmp = {     //use to resize image
                 width: 0,
                 height:0 }
-            //forceUpdate();
+            forceUpdate();
             var img = new Image();
             img.src = 'image.png';
-            tmp.width=Math.floor(img.width * 0.05)
-            tmp.height=Math.floor(img.height * 0.05)
+            tmp.width=Math.floor(img.width * 0.03)
+            tmp.height=Math.floor(img.height * 0.03)
             rover_position!.clearRect(x_previous, y_previous, tmp.width, tmp.height);
             console.log('clear: x_pre-',x_previous, 'y_pre-', y_previous)  // for debug
             img.onload = function() {
-                if(rover_x!==10 && rover_y!==10){
-                    rover_position!.drawImage(img, rover_x, rover_y, tmp.width,  tmp.height);}
+                // if(rover_x!==5 && rover_y!==5){
+                // if (rover_x-x_previous>=20 || rover_y-y_previous>=20 || rover_y==5 && rover_x==5 ) {
+                    rover_position!.drawImage(img, rover_x, rover_y, tmp.width,  tmp.height);
+                    console.log('draw: x-',rover_x, 'y-', rover_y);  // for debug
+                //}
             };
-            console.log('draw: x-',rover_x, 'y-', rover_y);  // for debug
+            //console.log('image width * height', tmp.width, tmp.height);
+           
 
             //clear previous image & draw new image --------- alien location
             if(rover_position && (alien_x!=5 || alien_y!=5)){
