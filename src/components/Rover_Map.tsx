@@ -1,19 +1,22 @@
 import React,{useState,useEffect,useRef,useCallback} from 'react'
 import axios from 'axios'
 var x_previous: number;
-//x_previous=5;
 var y_previous: number;
-//y_previous=5;
 var rover_x: number;
 var rover_y: number;
 var alien_x: number;
 var alien_y: number;
 var color: string;
 
-var id_rover_array = new Array<number>();
-var id_alien_array = new Array<number>();
+var canvas_initial_offset: number;     // ensure @ (0,0) image of rover can fully displayed
+canvas_initial_offset=5;
+//x_previous=canvas_initial_offset;
+//y_previous=canvas_initial_offset;
 
-//force useEffect to render (useful because useRef will prevent the change being noticed)
+// var id_rover_array = new Array<number>();
+// var id_alien_array = new Array<number>();
+
+/* ------------- force useEffect to render (useful because useRef will prevent the change being noticed) ------------- */
 export function useForceUpdate() {
   const [, setTick] = useState(0);
   const update = useCallback(() => {
@@ -22,14 +25,14 @@ export function useForceUpdate() {
   return update;
 }
 
-//define canvas
+/* -------------------------------------------------  define canvas  ------------------------------------------------- */
 interface CanvasProps {
     width: number;
     height: number;
 }
 
-//main function
-const Rover_Map = ({ width, height }: CanvasProps) => {
+/* ----------------------------------------------  main function  start  ---------------------------------------------- */
+const Map = ({ width, height }: CanvasProps) => {
 
     const forceUpdate = useForceUpdate();
 
@@ -44,7 +47,7 @@ const Rover_Map = ({ width, height }: CanvasProps) => {
 
     useEffect(() => {
 
-        //obtain coordinates from database --------- rover location
+        /* ------------------------------   obtain data from database - rover location   ------------------------------ */
         const FetchRoverData = async () => {
             try {
                 const res = await axios.get('http://localhost:8000/rover')
@@ -64,7 +67,7 @@ const Rover_Map = ({ width, height }: CanvasProps) => {
             }
         }
 
-        //obtain coordinates from database --------- alien location
+        /* ------------------------------   obtain data from database - alien location   ------------------------------ */
         const FetchAlienData = async () => {
             try {
                 const res1 = await axios.get('http://localhost:8000/mapalien')
@@ -84,7 +87,7 @@ const Rover_Map = ({ width, height }: CanvasProps) => {
             }
         }
 
-        //obtain coordinates where image is displayed --------- rover location
+        /* ----------------------   obtain coordinates where image is displayed - rover location   ---------------------- */
         var roverlocate_x = roverlocatex.toString().split("")
         var roverlocate_y = roverlocatey.toString().split("")
         if (rover_x!==5+parseInt(roverlocate_x.join("")) || rover_y!==5+parseInt(roverlocate_y.join("")) ){
@@ -92,22 +95,21 @@ const Rover_Map = ({ width, height }: CanvasProps) => {
             x_previous=rover_x
             y_previous=rover_y}
         //}
-        rover_x = 5+parseInt(roverlocate_x.join(""))    //+5: make sure full image/circle is displayed
-        rover_y = 5+parseInt(roverlocate_y.join(""))
+        rover_x = canvas_initial_offset+parseInt(roverlocate_x.join(""))    //+5: make sure full image/circle is displayed
+        rover_y = canvas_initial_offset+parseInt(roverlocate_y.join(""))
 
-        //obtain coordinates where image is displayed --------- alien location
+        /* ----------------------   obtain coordinates where image is displayed - alien location   ---------------------- */
         var alienlocate_x = alienlocatex.toString().split("")
         var alienlocate_y = alienlocatey.toString().split("")
-        alien_x = 5+parseInt(alienlocate_x.join(""))
-        alien_y = 5+parseInt(alienlocate_y.join(""))
+        alien_x = canvas_initial_offset+parseInt(alienlocate_x.join(""))
+        alien_y = canvas_initial_offset+parseInt(alienlocate_y.join(""))
         var alien_color = aliencolor.toString().split("")
         color = alien_color.join("")
 
-
-        //clear previous image & draw new image --------- rover location
+        /* -------------------------   clear previous image & draw new image - rover location   -------------------------*/
         if (canvasRef.current) {
             var canvas = canvasRef.current;
-            var rover_position = canvas.getContext('2d');  
+            var map_drawing = canvas.getContext('2d');  
             var tmp = {     //use to resize image
                 width: 0,
                 height:0 }
@@ -119,25 +121,28 @@ const Rover_Map = ({ width, height }: CanvasProps) => {
             img.onload = function() {
                 // if(rover_x!==5 && rover_y!==5){
                 // if (rover_x-x_previous>=20 || rover_y-y_previous>=20 || rover_y==5 && rover_x==5 ) {
-                    rover_position!.clearRect(x_previous, y_previous, tmp.width, tmp.height);
+                    map_drawing!.clearRect(x_previous, y_previous, tmp.width, tmp.height);
                     console.log('clear: x_pre-',x_previous, 'y_pre-', y_previous)  // for debug
-                    rover_position!.drawImage(img, rover_x, rover_y, tmp.width,  tmp.height);
+                    map_drawing!.drawImage(img, rover_x, rover_y, tmp.width,  tmp.height);
                     console.log('draw: x-',rover_x, 'y-', rover_y);  // for debug
                 //}
             };
             //console.log('image width * height', tmp.width, tmp.height);
            
-
-            //clear previous image & draw new image --------- alien location
-            if(rover_position && (alien_x!=5 || alien_y!=5)){
-                rover_position.beginPath();
-                rover_position.arc(alien_x, alien_y, 5, 0, 2*Math.PI);
-                console.log('color', color);  // for debug
-                rover_position.fillStyle = color
-                rover_position.fill();
-                rover_position.stroke();
-            }   else {console.log('error loading context')}
-
+            /* ------------------------   clear previous image & draw new image - alien location   ------------------------ */
+            if(map_drawing && (alien_x!==canvas_initial_offset || alien_y!==canvas_initial_offset)){
+                map_drawing.beginPath();
+                // console.log('color', color);  // for debug
+                if (color==='BUILDING'){
+                    map_drawing.rect(alien_x, alien_y, 5, 5);     //rectangular OR bulding drawing
+                    map_drawing.fillStyle = 'white'
+                } else {
+                    map_drawing.arc(alien_x, alien_y, 5, 0, 2*Math.PI);     //circle drawing
+                    map_drawing.fillStyle = color
+                }
+                map_drawing.fill();
+                map_drawing.stroke();
+            }   else {console.log('error loading contents')}
         }       
         FetchRoverData()
         FetchAlienData()
@@ -150,10 +155,10 @@ const Rover_Map = ({ width, height }: CanvasProps) => {
     );
 };
 
-//canvas size
-Rover_Map.defaultProps = {
+/* -------------------------------------------------  canvas size  ------------------------------------------------- */
+Map.defaultProps = {
     width: 400,
     height: 500,
 };
 
-export default Rover_Map;
+export default Map;

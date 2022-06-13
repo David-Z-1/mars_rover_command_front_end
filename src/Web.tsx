@@ -103,8 +103,8 @@ export default function Web({setStatus}:{setStatus:any}) {
       </Box>
 
       <Box sx={{height: '100vh'}} id = "Page">
-        <Grid container alignItems="center">
-          <Paper elevation={20} sx={{padding: 10, height:'50vh', width: '30vh', margin: '120px auto'}}>
+        <Grid container>
+          <Paper elevation={20} sx={{padding: 10, height:'50vh', width: '30vh', margin: '120px auto',alignItems:'center', justifyContent:'center'}}>
             <Box
               component="img" alt="logo" src="logo2.svg"
               sx={{height: "6vh", width: "auto", marginBottom:"2rem"}}/>

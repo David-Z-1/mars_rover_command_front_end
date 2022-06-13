@@ -1,6 +1,6 @@
 import React from 'react'
 import Coordinates from './components/Coordinates'
-import Rover_Map from './components/Rover_Map'
+import Map from './components/Rover_Map'
 import './grid.css'
 
 export default function Grid () {
@@ -9,7 +9,7 @@ export default function Grid () {
   
       <div className="container">
         <div className="item"><Coordinates/></div>
-        <div className="item"><Rover_Map/></div>
+        <div className="item"><Map/></div>
         <div className="item">3</div>
         <div className="item">4</div>
         <div className="item">5</div>
