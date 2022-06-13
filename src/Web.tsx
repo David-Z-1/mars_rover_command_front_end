@@ -20,6 +20,12 @@ import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './components/firebaseConfig';
 
+interface State {
+  email: string;
+  password: string;
+  showPassword: boolean;
+}
+
 export default function Web({setStatus}:{setStatus:any}) {
 
   const [checked, setChecked] = useState(false);
@@ -29,7 +35,7 @@ export default function Web({setStatus}:{setStatus:any}) {
 
   let navigate = useNavigate();
 
-  const [values, setValues] = React.useState({
+  const [values, setValues] = React.useState<State>({
       email: '',
       password: '',
       showPassword: false,
@@ -37,7 +43,6 @@ export default function Web({setStatus}:{setStatus:any}) {
 
   const login = async () => {
         try{
-            console.log('fuck')
             signInWithEmailAndPassword(
                  auth,
                  values.email, 
@@ -46,7 +51,7 @@ export default function Web({setStatus}:{setStatus:any}) {
                 setStatus(true);
                 navigate("/Grid");
             })
-        } 
+        }
         catch(error) {
             if(error instanceof Error){
                 console.log(error.message)
@@ -54,20 +59,20 @@ export default function Web({setStatus}:{setStatus:any}) {
         };
     }
     
-  const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
+    const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setValues({ ...values, [prop]: event.target.value });
     };
     
-  const handleClickShowPassword = () => {
-        setValues({
-          ...values,
-          showPassword: !values.showPassword,
-        });
+    const handleClickShowPassword = () => {
+      setValues({
+        ...values,
+        showPassword: !values.showPassword,
+      });
     };
-    
-  const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-      };
+  
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+    };
   
   return (
    
