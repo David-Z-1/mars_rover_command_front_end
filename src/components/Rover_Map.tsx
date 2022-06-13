@@ -48,10 +48,8 @@ const Rover_Map = ({ width, height }: CanvasProps) => {
         const FetchRoverData = async () => {
             try {
                 const res = await axios.get('http://localhost:8000/rover')
-
                 setRoverlocateX((res.data)[0]['x-axis'])
                 setRoverlocateY((res.data)[0]['y-axis'])
-
                 // if(id_rover_array.indexOf((res.data)[0]['id']) == -1){
                 //     console.log("rover id update")
                 //     id_rover_array.push((res.data)[0]['id'])
@@ -118,11 +116,11 @@ const Rover_Map = ({ width, height }: CanvasProps) => {
             img.src = 'image.png';
             tmp.width=Math.floor(img.width * 0.03)
             tmp.height=Math.floor(img.height * 0.03)
-            rover_position!.clearRect(x_previous, y_previous, tmp.width, tmp.height);
-            console.log('clear: x_pre-',x_previous, 'y_pre-', y_previous)  // for debug
             img.onload = function() {
                 // if(rover_x!==5 && rover_y!==5){
                 // if (rover_x-x_previous>=20 || rover_y-y_previous>=20 || rover_y==5 && rover_x==5 ) {
+                    rover_position!.clearRect(x_previous, y_previous, tmp.width, tmp.height);
+                    console.log('clear: x_pre-',x_previous, 'y_pre-', y_previous)  // for debug
                     rover_position!.drawImage(img, rover_x, rover_y, tmp.width,  tmp.height);
                     console.log('draw: x-',rover_x, 'y-', rover_y);  // for debug
                 //}
@@ -148,7 +146,6 @@ const Rover_Map = ({ width, height }: CanvasProps) => {
     return (
         <div>
             <canvas ref={canvasRef} height={height} width={width} />
-            {/* <h1> {roverlocatex}, {roverlocatey} </h1>*/}
         </div>
     );
 };
