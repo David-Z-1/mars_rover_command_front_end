@@ -1,18 +1,25 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react'
+import { useState} from 'react';
 import Box from '@mui/material/Box';
-import Popper, { PopperPlacementType } from '@mui/material/Popper';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import Fade from '@mui/material/Fade';
-import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import ArrowCircleUpOutlinedIcon from '@mui/icons-material/ArrowCircleUpOutlined';
+import ArrowCircleLeftOutlinedIcon from '@mui/icons-material/ArrowCircleLeftOutlined';
+import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
+import ArrowCircleDownOutlinedIcon from '@mui/icons-material/ArrowCircleDownOutlined';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+
 
 export default function PositionedPopper() {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-  const [open, setOpen] = React.useState(false);
-  const [placement, setPlacement] = React.useState<PopperPlacementType>();
 
+  const [disabled, setDisabled] = useState(false);
+
+  const switchHandler = (event) =>{
+    setDisabled(event.target.checked);
+  }
+  
   const handleClick_forward = () => {
     fetch('http://localhost:8000/mannual_instruction', {
         method: 'POST',
@@ -26,52 +33,46 @@ export default function PositionedPopper() {
     .catch((error) => {
         console.error('Error:', error);});
   };
-    // const [PostId, setPostId] = useState<string[]>([]);
-    // useEffect(() => {
-    //     // POST request using fetch inside useEffect React hook
-    //     const requestOptions = {
-    //         method: 'POST',
-    //         // headers: { 'Content-Type': 'application/json' },
-    //         // body: JSON.stringify({ title: 'React Hooks POST Request Example' })
-    //     };
-    //     fetch('http://localhost:8000/mannual_instruction', requestOptions)
-    //         .then(response => response.json())
-    //         .then(data => setPostId(data.id));
-    
-    // // empty dependency array means this effect will only run once (like componentDidMount in classes)
-    // });
 
   return (
-    <Box sx={{ width: 500 }}>
-      {/* <Popper open={open} anchorEl={anchorEl} placement={placement} transition>
-        {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
-            <Paper>
-              <Typography sx={{ p: 2 }}>The content of the Popper.</Typography>
-            </Paper>
-          </Fade>
-        )}
-      </Popper> */}
+    <Box sx={{ width: 200}}>
+      {/* Mannual Switch */}
+      <FormGroup>
+        <FormControlLabel control={<Switch checked={disabled} onChange={switchHandler}/>} label="Mannual"/>
+      </FormGroup>
+
+      {/* up arrow button */}
       <Grid container justifyContent="center">
         <Grid item>
-          <Button onClick={handleClick_forward}>forward</Button>
+          <IconButton disabled={!disabled}>
+            <ArrowCircleUpOutlinedIcon onClick={handleClick_forward} sx={{fontSize: '3rem'}}/>
+          </IconButton>
         </Grid>
       </Grid>
+
       <Grid container justifyContent="center">
+        {/* left arrow button */}
         <Grid item xs={6}>
-          <Button onClick={handleClick_forward}>left</Button>
-        </Grid> 
-      </Grid>
-      <Grid item container xs={6} alignItems="flex-end" direction="column">
-          <Grid item>
-            <Button onClick={handleClick_forward}>right</Button>
-          </Grid>
-      </Grid>
-      <Grid container justifyContent="center">
-        <Grid item>
-          <Button onClick={handleClick_forward}>bottom</Button>
+          <IconButton disabled={!disabled}>
+            <ArrowCircleLeftOutlinedIcon onClick={handleClick_forward} sx={{fontSize: '3rem'}}/>
+          </IconButton>
+        </Grid>
+
+        {/* right arrow button  */}
+        <Grid item container xs={6} alignItems="flex-end" direction="column">
+          <IconButton disabled={!disabled}>
+            <ArrowCircleRightOutlinedIcon onClick={handleClick_forward} sx={{fontSize: '3rem'}}/>
+          </IconButton>
         </Grid>
       </Grid>
+
+      {/* bottom arrow button  */}
+      <Grid container justifyContent="center">
+        <IconButton disabled={!disabled}>
+            <ArrowCircleDownOutlinedIcon onClick={handleClick_forward} sx={{fontSize: '3rem'}}/>
+          </IconButton>
+      </Grid>
+
     </Box>
   );
 }

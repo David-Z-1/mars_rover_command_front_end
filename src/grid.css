@@ -1,14 +1,14 @@
 .container {
-    background-color: black;
+    background-color: white;
     display: grid;
-    grid-template-columns: 40rem 50rem;
+    grid-template-columns: 30rem 45rem;
     grid-template-rows: 30rem 20rem;
-    grid-gap: 3rem;
+    grid-gap: 5rem;
   }
 
 .item{
     font-size: 10pt;
-    color: white;
+    color: black;
     text-align: middle;
 }
 
@@ -18,4 +18,11 @@
   text-align: middle;
   background-image: url("mars.png");
   /* background-color: #cccccc; */
+}
+
+.mannual_container{
+    display: grid;
+    grid-template-columns: 12rem 21rem 12rem;
+    grid-template-rows: 20rem;
+    grid-gap: 1rem;
 }
