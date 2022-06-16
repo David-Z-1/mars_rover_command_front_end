@@ -57,23 +57,21 @@ export default function PositionedPopper() {
           <Button onClick={handleClick_forward}>forward</Button>
         </Grid>
       </Grid>
-      {/* <Grid container justifyContent="center">
+      <Grid container justifyContent="center">
         <Grid item xs={6}>
-          <br />
-          <Button onClick={handleClick('left')}>left</Button>
-          <br />
-        </Grid>
-        <Grid item container xs={6} alignItems="flex-end" direction="column">
+          <Button onClick={handleClick_forward}>left</Button>
+        </Grid> 
+      </Grid>
+      <Grid item container xs={6} alignItems="flex-end" direction="column">
           <Grid item>
-            <Button onClick={handleClick('right')}>right</Button>
+            <Button onClick={handleClick_forward}>right</Button>
           </Grid>
-        </Grid>
       </Grid>
       <Grid container justifyContent="center">
         <Grid item>
-          <Button onClick={handleClick('bottom')}>bottom</Button>
+          <Button onClick={handleClick_forward}>bottom</Button>
         </Grid>
-      </Grid> */}
+      </Grid>
     </Box>
   );
 }
