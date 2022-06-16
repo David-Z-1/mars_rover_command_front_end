@@ -1,13 +1,21 @@
 .container {
     background-color: black;
     display: grid;
-    grid-template-columns: 20rem 40rem 30rem;
+    grid-template-columns: 40rem 50rem;
     grid-template-rows: 30rem 20rem;
-    grid-gap: 1rem;
+    grid-gap: 3rem;
   }
 
 .item{
     font-size: 10pt;
     color: white;
     text-align: middle;
+}
+
+.map{
+  font-size: 10pt;
+  color: white;
+  text-align: middle;
+  background-image: url("mars.png");
+  /* background-color: #cccccc; */
 }
