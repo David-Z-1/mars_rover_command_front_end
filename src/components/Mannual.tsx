@@ -14,13 +14,12 @@ export default function PositionedPopper() {
   const [placement, setPlacement] = React.useState<PopperPlacementType>();
 
   const handleClick_forward = () => {
-    console.log('1:')
     fetch('http://localhost:8000/mannual_instruction', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: '{"distance":30}',})
+        body: '{"distance":50, "direction":0}',})
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);})
