@@ -12,6 +12,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 
 
+
 export default function PositionedPopper() {
 
   const [disabled, setDisabled] = useState(false);
@@ -35,12 +36,13 @@ export default function PositionedPopper() {
   };
 
   return (
-    <Box sx={{ width: 200}}>
+    <Box sx={{ display: 'flex' }}>
       {/* Mannual Switch */}
       <FormGroup>
         <FormControlLabel control={<Switch checked={disabled} onChange={switchHandler}/>} label="Mannual"/>
       </FormGroup>
 
+      <Box sx={{ width: 200}}>
       {/* up arrow button */}
       <Grid container justifyContent="center">
         <Grid item>
@@ -72,7 +74,7 @@ export default function PositionedPopper() {
             <ArrowCircleDownOutlinedIcon onClick={handleClick_forward} sx={{fontSize: '3rem'}}/>
           </IconButton>
       </Grid>
-
+      </Box>
     </Box>
   );
 }

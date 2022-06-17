@@ -1,9 +1,13 @@
 .container {
-    background-color: white;
+    /* background-color: white; */
     display: grid;
     grid-template-columns: 30rem 45rem;
     grid-template-rows: 30rem 20rem;
     grid-gap: 5rem;
+    background-image: url("BG1.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    min-height: 100vh;
   }
 
 .item{
@@ -22,7 +26,9 @@
 
 .mannual_container{
     display: grid;
-    grid-template-columns: 12rem 21rem 12rem;
+    grid-template-columns: 25rem 15rem;
     grid-template-rows: 20rem;
     grid-gap: 1rem;
 }
+
+

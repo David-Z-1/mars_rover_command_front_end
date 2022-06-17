@@ -1,10 +1,10 @@
 import React from 'react'
-import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid';
 import OutlinedInput from '@mui/material/OutlinedInput'; 
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
+import SendIcon from '@mui/icons-material/Send';
 
 interface State {
     distance: string;
@@ -24,7 +24,7 @@ export default function Input() {
       
     
   return (
-    <Grid container>
+    <Grid container justifyContent="center" alignItems="center">
         <FormControl fullWidth variant="outlined" sx={{marginBottom:"2rem"}} id = "distance"> 
           <InputLabel htmlFor="outlined-adornment-distance">Distance</InputLabel>
             <OutlinedInput
@@ -43,8 +43,8 @@ export default function Input() {
                 label="Angle"/>
         </FormControl>
 
-        <Button fullWidth variant="contained" sx={{fontFamily: 'Nunito', fontSize:'1rem', marginBottom:"2rem"}}>
-            Submit 
+        <Button fullWidth variant="contained" sx={{fontFamily: 'Nunito', fontSize:'1rem', marginBottom:"2rem"}} endIcon={<SendIcon/>}>
+            Send
         </Button>
     </Grid> 
   )

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Web from './Web'
-import Grid from './grid'
+import Grid from './Grid'
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 export default function App(){ 
