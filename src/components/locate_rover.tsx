@@ -10,11 +10,12 @@ const Locate_rover  = () => {
 
       const fetchData = async () => {
           try {
-              const res = await axios.get('http://localhost:8000/rover')
-              setRoverlocateX((res.data)[0]['x-axis'])
-              setRoverlocateY((res.data)[0]['y-axis'])
-            //   console.log((res.data)[0]['y-axis'])
-            //   console.log((res.data)[0]['x-axis'])
+              const res = await axios.get('https://us-central1-rover-back-end.cloudfunctions.net/rover_1')
+              console.log("fetch original data from firebase: ", res)
+              setRoverlocateX((res.data)[0])
+              setRoverlocateY((res.data)[1])
+              console.log("fetch x-axis from firebase: ", (res.data)[1])
+              console.log("fetch x-axis from firebase: ", (res.data)[1])
           } 
           catch (error) {
               console.log(error)

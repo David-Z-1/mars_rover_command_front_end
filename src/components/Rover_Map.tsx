@@ -50,9 +50,9 @@ const Map = ({ width, height }: CanvasProps) => {
         /* ------------------------------   obtain data from database - rover location   ------------------------------ */
         const FetchRoverData = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/rover')
-                setRoverlocateX((res.data)[0]['x-axis'])
-                setRoverlocateY((res.data)[0]['y-axis'])
+                const res = await axios.get('https://us-central1-rover-back-end.cloudfunctions.net/rover_1')
+                setRoverlocateX((res.data)[0])
+                setRoverlocateY((res.data)[1])
                 // if(id_rover_array.indexOf((res.data)[0]['id']) == -1){
                 //     console.log("rover id update")
                 //     id_rover_array.push((res.data)[0]['id'])
@@ -63,17 +63,18 @@ const Map = ({ width, height }: CanvasProps) => {
                 // }
             } 
             catch (error) {
-                console.log(error)
+                console.log("error @ FetchRoverData @ map", error)
             }
         }
 
         /* ------------------------------   obtain data from database - alien location   ------------------------------ */
         const FetchAlienData = async () => {
             try {
-                const res1 = await axios.get('http://localhost:8000/mapalien')
-                setAlienlocateX((res1.data)[0]['x-axis'])
-                setAlienlocateY((res1.data)[0]['y-axis'])
-                setAliencolor((res1.data)[0]['color'])
+                const res1 = await axios.get('https://us-central1-rover-back-end.cloudfunctions.net/new_alien_app')
+                setAlienlocateX((res1.data)['x-axis'])
+                setAlienlocateY((res1.data)['y-axis'])
+                setAliencolor((res1.data)['color'])
+                console.log("check_alien_data", (res1.data)['color'])
                 // if(id_alien_array.indexOf((res1.data)[0]['id']) == -1){
                 //     forceUpdate();
                 //     id_alien_array.push((res1.data)[0]['id'])
@@ -83,7 +84,7 @@ const Map = ({ width, height }: CanvasProps) => {
                 // }
             }
             catch (error) {
-                console.log(error)
+                console.log("error @ FetchAlienData @ map", error)
             }
         }
 
