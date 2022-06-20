@@ -59,7 +59,7 @@ const Coordinates = () => {
         //                 <h2> x-axis: {roverlocatex} | y-axis: {roverlocatey}</h2>
         //         </div>
         // </div>
-        <Paper elevation={3} sx={{ height:350, marginLeft: 5, marginRight: 30}}>
+        <Paper elevation={3} sx={{ height:350, marginLeft: 8, marginRight: 30}}>
             <Grid container alignItems = "center" direction="row" sx={{marginLeft: 1}}>
                 <Grid>
                 <Avatar alt="Alien" src="image.png" />

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState} from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper'
@@ -11,11 +11,20 @@ import ArrowCircleDownOutlinedIcon from '@mui/icons-material/ArrowCircleDownOutl
 import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import OutlinedInput from '@mui/material/OutlinedInput'; 
+import InputLabel from '@mui/material/InputLabel';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import InputAdornment from '@mui/material/InputAdornment';
+import SendIcon from '@mui/icons-material/Send';
+
 import Switch from '@mui/material/Switch';
 
+interface State {
+  Speed: string;
+}
 
-
-export default function PositionedPopper() {
+export default function Controller() {
 
   const [disabled, setDisabled] = useState(false);
 
@@ -113,12 +122,20 @@ export default function PositionedPopper() {
         console.error('Error:', error);});
   };
 
+  const [values, setValues] = React.useState<State>({
+    Speed: '',
+});
+
+const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  setValues({ ...values, [prop]: event.target.value });
+};
+
   return (
-    <Paper elevation={3} sx={{opacity: 0.9, display:'flex'}}>
+    <Paper elevation={3} sx={{display:'flex'}}>
     <Box sx={{ display: 'flex', justifyContent: 'flex', margin: 0.8}}>
       {/* Mannual Switch */}
       <FormGroup>
-        <FormControlLabel control={<Switch checked={disabled} onChange={switchHandler}/>} label="Mannual"/>
+        <FormControlLabel control={<Switch checked={disabled} onChange={switchHandler}/>} label="Mannual" sx={{marginLeft: 1}}/>
       </FormGroup>
 
       <Box sx={{ width: 200}}>
@@ -161,6 +178,27 @@ export default function PositionedPopper() {
       </Grid>
       </Box>
     </Box>
+    
+
+    <Grid container justifyContent="center" alignItems="center" sx={{marginLeft: 5, marginRight: 5}}>
+
+        {/* Sports Mode switch */}
+        <FormControlLabel control={<Switch/>} label="Sports Mode"/>
+
+        <FormControl fullWidth variant="outlined" sx={{marginBottom:0}} id = "speed"> 
+          <InputLabel htmlFor="outlined-adornment-speed">Speed</InputLabel>
+            <OutlinedInput
+                id="outlined-adornment-speed"
+                value={values.Speed}
+                onChange={handleChange('Speed')}
+                endAdornment={<InputAdornment position="end">MPH</InputAdornment>}
+                label="Speed"/>  
+          </FormControl>
+
+        <Button fullWidth variant="contained" sx={{fontFamily: 'Nunito', fontSize:'1rem', marginBottom:"1rem"}} endIcon={<SendIcon/>}>
+            Send
+        </Button>
+    </Grid> 
     </Paper>
   );
 }

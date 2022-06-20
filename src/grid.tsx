@@ -1,7 +1,7 @@
 import React from 'react'
 import Coordinates from './components/Coordinates'
 import Map from './components/Rover_Map'
-import PositionedPopper from './components/Mannual'
+import Controller from './components/Mannual'
 // import Input from './components/Input'
 import Database from './components/Database'
 import Title from './components/Title'
@@ -16,9 +16,9 @@ export default function Grid () {
         <div className="title"></div>
         <div className="item"><Coordinates/></div>
         <div className="map"><Map/></div>
-        <div className="item"><Database/></div>
+        <div ><Database/></div>
         <div className="mannual_container">
-          <div className="item"><PositionedPopper/></div>
+          <div><Controller/></div>
         </div>
       </div>
     )
