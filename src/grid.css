@@ -22,11 +22,12 @@
   text-align: middle;
   /* background-image: url("map.jpeg"); */
   /* background-color: #cccccc; */
+  border-style: dashed;
 }
 
 .mannual_container{
     display: grid;
-    grid-template-columns: 25rem 15rem;
+    grid-template-columns: 38rem;
     grid-template-rows: 20rem;
     grid-gap: 1rem;
 }

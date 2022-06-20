@@ -92,8 +92,8 @@ export default function PositionedPopper() {
   };
 
   return (
-    <Paper elevation={3} sx={{opacity: 0.9}}>
-    <Box sx={{ display: 'flex', margin: 0.8}}>
+    <Paper elevation={3} sx={{opacity: 0.9, display:'flex'}}>
+    <Box sx={{ display: 'flex', justifyContent: 'flex', margin: 0.8}}>
       {/* Mannual Switch */}
       <FormGroup>
         <FormControlLabel control={<Switch checked={disabled} onChange={switchHandler}/>} label="Mannual"/>

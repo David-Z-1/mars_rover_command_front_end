@@ -19,7 +19,6 @@ export default function Grid () {
         <div className="item"><Database/></div>
         <div className="mannual_container">
           <div className="item"><PositionedPopper/></div>
-          {/* <div className="item"><Input/></div> */}
         </div>
       </div>
     )
