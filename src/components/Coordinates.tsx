@@ -59,7 +59,7 @@ const Coordinates = () => {
         //                 <h2> x-axis: {roverlocatex} | y-axis: {roverlocatey}</h2>
         //         </div>
         // </div>
-        <Paper elevation={3} sx={{marginLeft: 5, marginRight: 30}}>
+        <Paper elevation={3} sx={{ height:350, marginLeft: 5, marginRight: 30}}>
             <Grid container alignItems = "center" direction="row" sx={{marginLeft: 1}}>
                 <Grid>
                 <Avatar alt="Alien" src="image.png" />
@@ -71,12 +71,13 @@ const Coordinates = () => {
             </Grid>
             <Grid sx={{marginLeft: 1}}>
                 {xaxis.length > 0 ? (
-                    <div className='content'>
+            <div>
                         {xaxis.map((x) => (
-                            <h2> x-axis: {x['x-axis']}; | y-axis: {x['y-axis']}; | type: {x['color']}</h2>
+                            <h2> x-axis: {x['x-axis']} | y-axis: {x['y-axis']} | type: {x['color']}</h2>
                         ))}
-                    </div>
-                ):( <p className="loading">Loading... </p>)}
+                </div>
+
+                ):( <h2 className="loading">Loading... </h2>)}
             </Grid>
 
 
@@ -90,7 +91,7 @@ const Coordinates = () => {
                 </Grid>
             
             </Grid>
-            <Grid sx={{marginLeft: 1}}>
+            <Grid sx={{marginLeft: 1, marginBottom: 5}}>
                 <h2> x-axis: {roverlocatex} | y-axis: {roverlocatey}</h2>
                 </Grid>
 
