@@ -14,8 +14,8 @@ const Locate_rover  = () => {
               console.log("fetch original data from firebase: ", res)
               setRoverlocateX((res.data)[0])
               setRoverlocateY((res.data)[1])
-              console.log("fetch x-axis from firebase: ", (res.data)[1])
-              console.log("fetch x-axis from firebase: ", (res.data)[1])
+              console.log("fetch x-axis from firebase: ", (res.data)[0])
+              console.log("fetch y-axis from firebase: ", (res.data)[1])
           } 
           catch (error) {
               console.log(error)

@@ -47,6 +47,8 @@ const Map = ({ width, height }: CanvasProps) => {
 
     useEffect(() => {
 
+        const intervalId = setInterval(() => {
+
         /* ------------------------------   obtain data from database - rover location   ------------------------------ */
         const FetchRoverData = async () => {
             try {
@@ -96,8 +98,8 @@ const Map = ({ width, height }: CanvasProps) => {
             x_previous=rover_x
             y_previous=rover_y}
         //}
-        rover_x = canvas_initial_offset+parseInt(roverlocate_x.join(""))    //+5: make sure full image/circle is displayed
-        rover_y = canvas_initial_offset+parseInt(roverlocate_y.join(""))
+        rover_x = canvas_initial_offset+Math.abs(parseInt(roverlocate_x.join(""))*15)    //+5: make sure full image/circle is displayed
+        rover_y = canvas_initial_offset+Math.abs(parseInt(roverlocate_y.join(""))*15)
 
         /* ----------------------   obtain coordinates where image is displayed - alien location   ---------------------- */
         var alienlocate_x = alienlocatex.toString().split("")
@@ -114,11 +116,11 @@ const Map = ({ width, height }: CanvasProps) => {
             var tmp = {     //use to resize image
                 width: 0,
                 height:0 }
-            forceUpdate();
+            //forceUpdate();
             var img = new Image();
             img.src = 'image.png';
-            tmp.width=Math.floor(img.width * 0.03)
-            tmp.height=Math.floor(img.height * 0.03)
+            tmp.width=Math.floor(img.width * 0.04)
+            tmp.height=Math.floor(img.height * 0.04)
             img.onload = function() {
                 // if(rover_x!==5 && rover_y!==5){
                 // if (rover_x-x_previous>=20 || rover_y-y_previous>=20 || rover_y==5 && rover_x==5 ) {
@@ -147,6 +149,8 @@ const Map = ({ width, height }: CanvasProps) => {
         }       
         FetchRoverData()
         FetchAlienData()
+        }, 1000);
+        return () => clearInterval(intervalId); //This is important
     } );
 
     return (
