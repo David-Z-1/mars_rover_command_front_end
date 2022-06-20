@@ -18,7 +18,8 @@ const Coordinates = () => {
 //   useEffect(() => {     // Trigger the fetchData after the initial render by using the useEffect hook
 //     fetchData();
 //   }, [xaxis]);
-    var x = Locate_alien()
+    var x = (Locate_alien())
+    console.log("location of alien recieved: ", x)
 
   /*                  ------------get location of rover------------                  */
 //   const [roverlocatex, setRoverlocateX] = useState([]);
@@ -69,7 +70,7 @@ const Coordinates = () => {
                 </Grid>   
             </Grid>
             <Grid sx={{marginLeft: 1}}>
-                <h2> x-axis: {x['x-axis']} | y-axis: {x['y-axis']} | type: {x['color']}</h2>
+                {/* <h2> x-axis: {x[0]['x-axis']} | y-axis: {x[0]['y-axis']} | type: {x[0]['color']}</h2> */}
                 </Grid>
 
 

@@ -21,6 +21,28 @@ export default function PositionedPopper() {
 
   const switchHandler = (event) =>{
     setDisabled(event.target.checked);
+    if (disabled) {
+      fetch('https://rover-back-end-default-rtdb.europe-west1.firebasedatabase.app/mode.json', {
+        method: 'PUT',
+        body: '{"mode":0}', // sig 0: auto
+      })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Transmit Success:', data);})
+    .catch((error) => {
+        console.error('Error:', error);});
+    }
+    else {
+      fetch('https://rover-back-end-default-rtdb.europe-west1.firebasedatabase.app/mode.json', {
+        method: 'PUT',
+        body: '{"mode":1}', // sig 1: mannual
+      })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Transmit Success:', data);})
+    .catch((error) => {
+        console.error('Error:', error);});
+    }
   }
   
   const handleClick_forward = () => {
@@ -46,7 +68,7 @@ export default function PositionedPopper() {
   const handleClick_backward = () => {
     fetch('https://rover-back-end-default-rtdb.europe-west1.firebasedatabase.app/mannual_instruction.json', {
         method: 'PUT',
-        body: '{"move":2}',
+        body: '{"move":4}',
       })
     .then(response => response.json())
     .then(data => {
@@ -58,7 +80,7 @@ export default function PositionedPopper() {
   const handleClick_left = () => {
     fetch('https://rover-back-end-default-rtdb.europe-west1.firebasedatabase.app/mannual_instruction.json', {
         method: 'PUT',
-        body: '{"move":3}',
+        body: '{"move":2}',
       })
     .then(response => response.json())
     .then(data => {
@@ -70,7 +92,7 @@ export default function PositionedPopper() {
   const handleClick_right = () => {
     fetch('https://rover-back-end-default-rtdb.europe-west1.firebasedatabase.app/mannual_instruction.json', {
         method: 'PUT',
-        body: '{"move":4}',
+        body: '{"move":3}',
       })
     .then(response => response.json())
     .then(data => {
