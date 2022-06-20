@@ -18,8 +18,8 @@ const Coordinates = () => {
 //   useEffect(() => {     // Trigger the fetchData after the initial render by using the useEffect hook
 //     fetchData();
 //   }, [xaxis]);
-    var x = (Locate_alien())
-    console.log("location of alien recieved: ", x)
+    var xaxis = (Locate_alien())
+    console.log("location of alien recieved: ", xaxis)
 
   /*                  ------------get location of rover------------                  */
 //   const [roverlocatex, setRoverlocateX] = useState([]);
@@ -70,8 +70,14 @@ const Coordinates = () => {
                 </Grid>   
             </Grid>
             <Grid sx={{marginLeft: 1}}>
-                {/* <h2> x-axis: {x[0]['x-axis']} | y-axis: {x[0]['y-axis']} | type: {x[0]['color']}</h2> */}
-                </Grid>
+                {xaxis.length > 0 ? (
+                    <div className='content'>
+                        {xaxis.map((x) => (
+                            <h2> x-axis: {x['x-axis']}; | y-axis: {x['y-axis']}; | type: {x['color']}</h2>
+                        ))}
+                    </div>
+                ):( <p className="loading">Loading... </p>)}
+            </Grid>
 
 
             <Grid container alignItems = "center" direction="row" sx={{marginLeft: 1}}>
