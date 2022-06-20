@@ -1,10 +1,10 @@
 .container {
     /* background-color: white; */
     display: grid;
-    grid-template-columns: 30rem 45rem;
-    grid-template-rows: 30rem 20rem;
-    grid-gap: 5rem;
-    background-image: url("BG1.jpg");
+    grid-template-columns: 48rem 38rem;
+    grid-template-rows: 5rem 25rem 20rem;
+    grid-gap: 2rem;
+    background-image: url("back.png");
     background-repeat: no-repeat;
     background-size:cover;
     min-height: 100vh;
@@ -20,7 +20,7 @@
   font-size: 10pt;
   color: white;
   text-align: middle;
-  background-image: url("mars.png");
+  /* background-image: url("map.jpeg"); */
   /* background-color: #cccccc; */
 }
 
@@ -29,6 +29,10 @@
     grid-template-columns: 25rem 15rem;
     grid-template-rows: 20rem;
     grid-gap: 1rem;
+}
+
+.title{
+  /* grid-column: 2 / 2; */
 }
 
 
