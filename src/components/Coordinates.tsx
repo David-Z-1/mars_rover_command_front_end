@@ -7,6 +7,7 @@ import Avatar from '@mui/material/Avatar';
 import './coordinates.css';
 import Locate_alien from './locate_alien';
 import Locate_rover from './locate_rover';
+import Radar from './Radar';
 
 const Coordinates = () => {
   /*                  -----------get location of aliens-----------                  */
@@ -19,7 +20,9 @@ const Coordinates = () => {
 //     fetchData();
 //   }, [xaxis]);
     var xaxis = (Locate_alien())
-    console.log("location of alien recieved: ", xaxis)
+    // console.log("location of alien recieved: ", xaxis)
+    var radar = (Radar())
+    console.log("location of radar recieved: ", radar)
 
   /*                  ------------get location of rover------------                  */
 //   const [roverlocatex, setRoverlocateX] = useState([]);
@@ -71,12 +74,14 @@ const Coordinates = () => {
             </Grid>
             <Grid sx={{marginLeft: 1}}>
                 {xaxis.length > 0 ? (
-            <div>
+                <div>
                         {xaxis.map((x) => (
-                            <h2> x-axis: {x['x-axis']} | y-axis: {x['y-axis']} | type: {x['color']}</h2>
+                            <h2> x-axis: {x['x-axis']} | y-axis: {x['y-axis']} | type: {x['color']} - alien</h2>
                         ))}
                 </div>
-
+                ):( <h2 className="loading">Loading... </h2>)}
+                {radar ? (
+                            <h2> x-axis: {radar['x-axis']} | y-axis: {radar['y-axis']} | type: radar</h2>
                 ):( <h2 className="loading">Loading... </h2>)}
             </Grid>
 

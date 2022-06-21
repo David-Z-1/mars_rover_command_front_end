@@ -6,6 +6,8 @@ var rover_x: number;
 var rover_y: number;
 var alien_x: number;
 var alien_y: number;
+var radar_x: number;
+var radar_y: number;
 var color: string;
 
 var canvas_initial_offset: number;     // ensure @ (0,0) image of rover can fully displayed
@@ -42,6 +44,9 @@ const Map = ({ width, height }: CanvasProps) => {
     const [alienlocatex, setAlienlocateX] = useState<number[]>([0]);
     const [alienlocatey, setAlienlocateY] = useState<number[]>([0]);
     const [aliencolor, setAliencolor] = useState<string[]>([]);
+
+    const [radarlocatex, setRadarlocateX] = useState<number[]>([0]);
+    const [radarlocatey, setRadarlocateY] = useState<number[]>([0]);
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -90,6 +95,18 @@ const Map = ({ width, height }: CanvasProps) => {
             }
         }
 
+        const FetchRadarData = async () => {
+            try {
+                const res1 = await axios.get('https://us-central1-rover-back-end.cloudfunctions.net/radar')
+                setRadarlocateX((res1.data)['x-axis'])
+                setRadarlocateY((res1.data)['y-axis'])
+                console.log("check_map_rover_data", (res1.data)['x-axis'], (res1.data)['y-axis'])
+            }
+            catch (error) {
+                console.log("error @ FetchRoverData @ map", error)
+            }
+        }
+
         /* ----------------------   obtain coordinates where image is displayed - rover location   ---------------------- */
         var roverlocate_x = roverlocatex.toString().split("")
         var roverlocate_y = roverlocatey.toString().split("")
@@ -109,28 +126,47 @@ const Map = ({ width, height }: CanvasProps) => {
         var alien_color = aliencolor.toString().split("")
         color = alien_color.join("")
 
+        /* -------------------------   radar   ------------------------*/
+        var radarlocate_x = radarlocatex.toString().split("")
+        var radarlocate_y = radarlocatey.toString().split("")
+        radar_x = canvas_initial_offset+parseInt(radarlocate_x.join(""))
+        radar_y = canvas_initial_offset+parseInt(radarlocate_y.join(""))
+        console.log("radar location to be drawn: ", radar_x, radar_y)
+
         /* -------------------------   clear previous image & draw new image - rover location   -------------------------*/
         if (canvasRef.current) {
             var canvas = canvasRef.current;
             var map_drawing = canvas.getContext('2d');  
-            var tmp = {     //use to resize image
+            var tmp_1 = {     //use to resize image
                 width: 0,
                 height:0 }
             //forceUpdate();
             var img = new Image();
             img.src = 'image.png';
-            tmp.width=Math.floor(img.width * 0.04)
-            tmp.height=Math.floor(img.height * 0.04)
+            tmp_1.width=Math.floor(img.width * 0.04)
+            tmp_1.height=Math.floor(img.height * 0.04)
             img.onload = function() {
                 // if(rover_x!==5 && rover_y!==5){
                 // if (rover_x-x_previous>=20 || rover_y-y_previous>=20 || rover_y==5 && rover_x==5 ) {
-                    map_drawing!.clearRect(x_previous, y_previous, tmp.width, tmp.height);
+                    map_drawing!.clearRect(x_previous, y_previous, tmp_1.width, tmp_1.height);
                     console.log('clear: x_pre-',x_previous, 'y_pre-', y_previous)  // for debug
-                    map_drawing!.drawImage(img, rover_x, rover_y, tmp.width,  tmp.height);
+                    map_drawing!.drawImage(img, rover_x, rover_y, tmp_1.width,  tmp_1.height);
                     console.log('draw: x-',rover_x, 'y-', rover_y);  // for debug
                 //}
             };
-            //console.log('image width * height', tmp.width, tmp.height);
+
+            /* ------------------------   radar   -------------------------*/
+            var tmp_2 = {width: 0, height:0 }
+            var img_radar = new Image();
+            img_radar.src = 'alien_base.png';
+            tmp_2.width=Math.floor(img_radar.width * 0.05)
+            tmp_2.height=Math.floor(img_radar.height * 0.05)
+            img_radar.onload = function() {
+                if (radar_x!==canvas_initial_offset || radar_y!==canvas_initial_offset ) {
+                    map_drawing!.drawImage(img_radar, radar_x, radar_y, tmp_2.width,  tmp_2.height);
+                    console.log('radar_draw: x-',radar_x, 'y-', radar_y);  // for debug
+                }
+            };
            
             /* ------------------------   clear previous image & draw new image - alien location   ------------------------ */
             if(map_drawing && (alien_x!==canvas_initial_offset || alien_y!==canvas_initial_offset)){
@@ -147,6 +183,7 @@ const Map = ({ width, height }: CanvasProps) => {
                 map_drawing.stroke();
             }   else {console.log('error loading contents')}
         }       
+        FetchRadarData()
         FetchRoverData()
         FetchAlienData()
         }, 1000);
