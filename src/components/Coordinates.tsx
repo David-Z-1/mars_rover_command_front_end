@@ -9,6 +9,12 @@ import Locate_alien from './locate_alien';
 import Locate_rover from './locate_rover';
 import Radar from './Radar';
 
+// const commonStyles = {
+//     bgcolor: 'background.paper',
+//     border: 4,
+//   };
+  
+
 const Coordinates = () => {
   /*                  -----------get location of aliens-----------                  */
 //   const [xaxis, setXaxis] = useState([]); //empty array
@@ -48,47 +54,12 @@ const Coordinates = () => {
 
 /*         ------------display locations in x & y coordinates------------           */
     return (
-        // <div className='coordinates'>
-        //     <h2 className='title'> Alien Position </h2>
-        //     {xaxis.length > 0 ? (
-        //         <div className='content'>
-        //             {xaxis.map((x) => (
-        //                 <h2> x-axis: {x['x-axis']} | y-axis: {x['y-axis']} | type: {x['color']}</h2>
-        //             ))}
-        //         </div>
-        //     ):( <p className="loading">Loading... </p>)}
-        //     <h2 className='title'> Rover Position </h2>
-        //         <div className='content'>
-        //                 <h2> x-axis: {roverlocatex} | y-axis: {roverlocatey}</h2>
-        //         </div>
-        // </div>
-        <Paper elevation={3} sx={{ height:350, marginLeft: 8, marginRight: 30}}>
-            <Grid container alignItems = "center" direction="row" sx={{marginLeft: 1}}>
-                <Grid>
-                <Avatar alt="Alien" src="image.png" />
-                </Grid>
-                
-                <Grid sx={{marginLeft: 1}}>
-                <h2>Alien Position: </h2>
-                </Grid>   
-            </Grid>
-            <Grid sx={{marginLeft: 1}}>
-                {xaxis.length > 0 ? (
-                <div>
-                        {xaxis.map((x) => (
-                            <h2> x-axis: {x['x-axis']} | y-axis: {x['y-axis']} | type: {x['color']} - alien</h2>
-                        ))}
-                </div>
-                ):( <h2 className="loading">Loading... </h2>)}
-                {radar ? (
-                            <h2> x-axis: {radar['x-axis']} | y-axis: {radar['y-axis']} | type: radar</h2>
-                ):( <h2 className="loading">Loading... </h2>)}
-            </Grid>
-
-
+        <Grid>
+            {/* Rover_position */}
+            <Paper elevation={24} sx={{ height:100, marginLeft: 8, marginRight: 30, marginBottom: 2, background:'rgba(255,255,255,0.7)'}}>
             <Grid container alignItems = "center" direction="row" sx={{marginLeft: 1}}>
                   <Grid>
-                <Avatar alt="Alien" src="image.png" />
+                <Avatar alt="Rover" src="image.png" />
                 </Grid> 
                 
                 <Grid sx={{marginLeft: 1}}>
@@ -99,8 +70,54 @@ const Coordinates = () => {
             <Grid sx={{marginLeft: 1, marginBottom: 5}}>
                 <h2> x-axis: {roverlocatex} | y-axis: {roverlocatey}</h2>
                 </Grid>
+            </Paper>
 
-        </Paper>
+        {/* alien_position */}
+        <Paper elevation={24} sx={{ height:180, marginLeft: 8, marginRight: 30, marginBottom: 2, background:'rgba(255,255,255,0.8)'}}>
+            <Grid container alignItems = "center" direction="row" sx={{marginLeft: 1}}>
+                <Grid>
+                <Avatar alt="Alien" src="Alien.png" />
+                </Grid>
+                <Grid sx={{marginLeft: 1}}>
+                <h2>Alien Position: </h2>
+                </Grid>   
+            </Grid>
+            <Grid sx={{marginLeft: 1}}>
+                {xaxis.length > 0 ? (
+                <div>
+                        {xaxis.map((x) => (
+                            <h2> x-axis: {x['x-axis']} | y-axis: {x['y-axis']} | color: {x['color']}</h2>
+                        ))}
+                </div>
+                ):( <h2 className="loading">Loading... </h2>)}
+            </Grid> 
+            </Paper>
+
+            <Paper elevation={24} sx={{ height:100, marginLeft: 8, marginRight: 30, background:'rgba(255,255,255,0.8)'}}>
+            <Grid container alignItems = "center" direction="row" sx={{marginLeft: 1}}>
+                  <Grid>
+                <Avatar alt="Radar" src="alien_base.png" />
+                </Grid> 
+                
+                <Grid sx={{marginLeft: 1}}>
+                <h2>Power Infrastructure Position: </h2>
+                </Grid>
+            
+            </Grid>
+            <Grid sx={{marginLeft: 1, marginBottom: 5}}>
+            {radar ? (
+                            <h2> x-axis: {radar['x-axis']} | y-axis: {radar['y-axis']}</h2>
+                ):( <h2 className="loading">Loading... </h2>)}
+                </Grid>
+            </Paper>
+            
+      </Grid>
+      
+
+
+        
+   
+
 
     )
 }

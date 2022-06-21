@@ -1,5 +1,6 @@
 import React,{useState,useEffect,useRef,useCallback} from 'react'
 import axios from 'axios'
+import moment from "moment"
 var x_previous: number;
 var y_previous: number;
 var rover_x: number;
@@ -186,7 +187,7 @@ const Map = ({ width, height }: CanvasProps) => {
         FetchRadarData()
         FetchRoverData()
         FetchAlienData()
-        }, 1000);
+        }, 250);
         return () => clearInterval(intervalId); //This is important
     } );
 
@@ -199,8 +200,8 @@ const Map = ({ width, height }: CanvasProps) => {
 
 /* -------------------------------------------------  canvas size  ------------------------------------------------- */
 Map.defaultProps = {
-    width: 400,
-    height: 500,
+    width: 600,
+    height: 400,
 };
 
 export default Map;

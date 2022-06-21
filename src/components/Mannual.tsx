@@ -130,15 +130,53 @@ const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputE
   setValues({ ...values, [prop]: event.target.value });
 };
 
+const keyDownHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
+  console.log(event.key);
+
+  if (event.key ==="w"){
+    fetch('https://rover-back-end-default-rtdb.europe-west1.firebasedatabase.app/mannual_instruction.json', {
+        method: 'PUT',
+        body: '{"move":1}',
+      })
+  }
+
+  if (event.key ==="s"){
+    fetch('https://rover-back-end-default-rtdb.europe-west1.firebasedatabase.app/mannual_instruction.json', {
+        method: 'PUT',
+        body: '{"move":4}',
+      })
+  }
+
+  if (event.key ==="a"){
+    fetch('https://rover-back-end-default-rtdb.europe-west1.firebasedatabase.app/mannual_instruction.json', {
+        method: 'PUT',
+        body: '{"move":2}',
+      })
+  }
+
+  if (event.key ==="d"){
+    fetch('https://rover-back-end-default-rtdb.europe-west1.firebasedatabase.app/mannual_instruction.json', {
+        method: 'PUT',
+        body: '{"move":3}',
+      })
+  }
+
+  if (event.key ==="p"){
+    fetch('https://rover-back-end-default-rtdb.europe-west1.firebasedatabase.app/mannual_instruction.json', {
+        method: 'PUT',
+        body: '{"move":0}',
+      })
+  }
+}
   return (
-    <Paper elevation={3} sx={{display:'flex'}}>
+    <Paper elevation={24} sx={{display:'flex', background:'rgba(255,255,255,0.8)'}}>
     <Box sx={{ display: 'flex', justifyContent: 'flex', margin: 0.8}}>
       {/* Mannual Switch */}
       <FormGroup>
         <FormControlLabel control={<Switch checked={disabled} onChange={switchHandler}/>} label="Mannual" sx={{marginLeft: 1}}/>
       </FormGroup>
 
-      <Box sx={{ width: 200}}>
+      <Box sx={{ width: 200}} onKeyDown={keyDownHandler}>
       {/* up arrow button */}
       <Grid container justifyContent="center">
         <Grid item>

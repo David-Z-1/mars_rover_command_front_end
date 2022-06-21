@@ -12,8 +12,8 @@ export default function Grid () {
     return (
 
       <div className="container">
-        <div className="title"><Title/></div>
-        <div className="title"></div>
+        <div><Title/></div>
+        <div> </div>
         <div className="item"><Coordinates/></div>
         <div className="map"><Map/></div>
         <div ><Database/></div>
