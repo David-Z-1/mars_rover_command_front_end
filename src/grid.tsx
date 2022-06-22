@@ -5,6 +5,7 @@ import Controller from './components/Mannual'
 // import Input from './components/Input'
 import Database from './components/Database'
 import Title from './components/Title'
+import Signal from './components/Signal'
 import './grid.css'
 
 export default function Grid () {
@@ -13,7 +14,7 @@ export default function Grid () {
 
       <div className="container">
         <div><Title/></div>
-        <div> </div>
+        <div><Signal/> </div>
         <div className="item"><Coordinates/></div>
         <div className="map"><Map/></div>
         <div ><Database/></div>
